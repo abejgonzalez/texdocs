@@ -4,15 +4,26 @@
 LCC = pdflatex
 DEPS = res.cls
 
+NAMEPREFIX=gonzalez-abraham
+CV=$(NAMEPREFIX)-cv.pdf
+RESUME=$(NAMEPREFIX)-resume.pdf
+
 # Commands
 
-all: cv.pdf resume.pdf
+all: $(CV) $(RESUME)
 
 clean:
 	@rm -rf *.pdf
+	@rm -rf *.aux
+	@rm -rf *.out
+	@rm -rf *.log
 
-cv.pdf: cv.tex $(DEPS) 
+$(CV): cv.tex $(DEPS)
 	$(LCC) cv.tex --jobname=cv
+	$(LCC) cv.tex --jobname=cv
+	mv cv.pdf $(CV)
 
-resume.pdf: resume.tex $(DEPS)
+$(RESUME): resume.tex $(DEPS)
 	$(LCC) resume.tex --jobname=resume
+	$(LCC) resume.tex --jobname=resume
+	mv resume.pdf $(RESUME)
